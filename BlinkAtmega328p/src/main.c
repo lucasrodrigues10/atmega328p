@@ -1,46 +1,71 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
-#include <util/delay.h>
+#include <util/delay.h> //para usar delay
+#include <avr/io.h> //para modificar registradores especiais
+#include <avr/interrupt.h> //para usar interrupcao
+
+volatile uint8_t test;
+
+
 int main(void)
 {
 	/*
-		i = 100;      // 100 is stored in i
-		i = 0b100;    // 100b is stored in i which is 4 in decimal
-		i = 0x100;    // 100h is stored in i which is also 4 in decimal
-	*/
-	
-	/*
-		SET BIT
+	SET BIT
 	PORTB = 8;
 	PORTB |= (1 << 2);
-		CLEAR BIT
+	CLEAR BIT
 	PORTC = 34;
 	PORTC &= ~(1 << 5);
-		FLIP BIT
+	FLIP BIT
 	PORTD = 8;
 	PORTD ^= (1 << 5);
-		GET BIT
+	GET BIT
 	PORTB = 8;
 	if ( (PORTB & (1 << 3)) > 0)
 	{
-		// do this if the 3 bit is set(1)
+	// do this if the 3 bit is set(1)
 	}
 	else
 	{
-		// do this if the 3 bit is not set(0)
+	// do this if the 3 bit is not set(0)
 	}
 
-		
+	
 	*/
-	//Setando o bit DDB0 do Data Direction Register da Porta B para 1 - OUTPUT
-	DDRB |= (1<<DDB0);
+	
+	
+	sei(); //habilitar interrupcao
+	//cli(); //desabilita interrupcao
+	
+	
+	
+	DDRB |= (1<<DDB0); //PORTB OUTPUT para led
+	DDRD &= ~(1 << DDD0);//DDRD INPUT para botao
+	PORTD |= (1 << PORTD0);//PORTD PULLUP LIGADO para botao
+	
 	while(1)
 	{
-		//Setando o bit PORTB0 - Acende led
-		PORTB |= (1<<PORTB0);    
-		_delay_ms(500);        //Delay for 1000ms => 1 sec
-		
-		PORTB &= ~(1<<PORTB0);    //Turn 1th bit on PORTB (i.e. PB0) to 0 => off
-		_delay_ms(500);        //Delay for 1000ms => 1 sec
+		if ( (PIND & (1 << PIND0)) == 0) //Checa se o botão está ligado
+		{
+			_delay_ms(25); //Tempo de espera para o debounce
+			if ( (PIND & (1 << PIND0)) == 0) //Para debounce
+			{
+				PORTB |= (1<<PORTB0);  //Acende Led
+			}
+		}
+		else
+		{
+			PORTB &= ~(1<<PORTB0); //Apaga Led
+		}
 	}
+}
+
+ISR (INT0_vect)    // INT0 interrupt function
+{
+	/* enter code to execute here */
+}
+
+ISR (BADISR_vect)  // special function, to execute if a bad interrupt is called
+{
+	/* enter code to execute here */
 }

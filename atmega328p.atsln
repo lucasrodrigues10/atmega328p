@@ -7,6 +7,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "acende_led_botao", "BlinkAt
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "interrupcao_led_botao", "interrupcao_led_botao\interrupcao_led_botao.cproj", "{5E01D7E3-68DE-4E08-B015-92BEC2F47A7F}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer", "timer\timer.cproj", "{5A01F472-FCBE-4AF4-8C56-00FE0868827D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -21,6 +23,10 @@ Global
 		{5E01D7E3-68DE-4E08-B015-92BEC2F47A7F}.Debug|AVR.Build.0 = Debug|AVR
 		{5E01D7E3-68DE-4E08-B015-92BEC2F47A7F}.Release|AVR.ActiveCfg = Release|AVR
 		{5E01D7E3-68DE-4E08-B015-92BEC2F47A7F}.Release|AVR.Build.0 = Release|AVR
+		{5A01F472-FCBE-4AF4-8C56-00FE0868827D}.Debug|AVR.ActiveCfg = Debug|AVR
+		{5A01F472-FCBE-4AF4-8C56-00FE0868827D}.Debug|AVR.Build.0 = Debug|AVR
+		{5A01F472-FCBE-4AF4-8C56-00FE0868827D}.Release|AVR.ActiveCfg = Release|AVR
+		{5A01F472-FCBE-4AF4-8C56-00FE0868827D}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

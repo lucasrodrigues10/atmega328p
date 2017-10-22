@@ -101,24 +101,22 @@ int main(void)
 	PORTB |= (1<<PORTB0); //acende led
   94:	28 9a       	sbi	0x05, 0	; 5
 	
-	
-	TCCR1A = 0; //operacao normal
+	TCCR1A = 0; //operacao normal 
   96:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7e0080>
-	TCCR1B = 0;
+	TCCR1B = 0; //limpa o registrador
   9a:	e1 e8       	ldi	r30, 0x81	; 129
   9c:	f0 e0       	ldi	r31, 0x00	; 0
   9e:	10 82       	st	Z, r1
-	TCCR1B |= (1<<CS10 | 1<<CS12);
+	TCCR1B |= (1<<CS10 | 1<<CS12); //prescaler = 1024 CS12=1 CS10=1 (Clock Select)
   a0:	80 81       	ld	r24, Z
   a2:	85 60       	ori	r24, 0x05	; 5
   a4:	80 83       	st	Z, r24
 	
-	TCNT1 = 0xC2F7;
+	TCNT1 = 0xC2F7; //inicia timer com estouro em (2^16-(16MHz/1024)*1Hz) = 49911 = 0xC2F7
   a6:	87 ef       	ldi	r24, 0xF7	; 247
   a8:	92 ec       	ldi	r25, 0xC2	; 194
   aa:	90 93 85 00 	sts	0x0085, r25	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   ae:	80 93 84 00 	sts	0x0084, r24	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
-
 	TIMSK1 |= (1<<TOIE1);
   b2:	ef e6       	ldi	r30, 0x6F	; 111
   b4:	f0 e0       	ldi	r31, 0x00	; 0
@@ -144,7 +142,7 @@ ISR(TIMER1_OVF_vect){
   c8:	11 24       	eor	r1, r1
   ca:	8f 93       	push	r24
   cc:	9f 93       	push	r25
-	TCNT1 = 0xC2F7;
+	TCNT1 = 0xC2F7; //reseta contador
   ce:	87 ef       	ldi	r24, 0xF7	; 247
   d0:	92 ec       	ldi	r25, 0xC2	; 194
   d2:	90 93 85 00 	sts	0x0085, r25	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
@@ -154,9 +152,7 @@ ISR(TIMER1_OVF_vect){
   de:	8f 5f       	subi	r24, 0xFF	; 255
   e0:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
 	
-		//PORTB &= ~(1<<PORTB0); //acende led
-
-			PORTB ^= 0b00000001;//inverte led
+	PORTB ^= (1<<PORTB0);//inverte led
   e4:	95 b1       	in	r25, 0x05	; 5
   e6:	81 e0       	ldi	r24, 0x01	; 1
   e8:	89 27       	eor	r24, r25

@@ -11,6 +11,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer_normal", "timer\timer
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "pisca_led", "pisca_led\pisca_led.cproj", "{1D97C1A0-C009-4765-90AE-E5E4761EDD6D}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer_ctc", "timer_ctc\timer_ctc.cproj", "{BC79338B-992D-4307-B4A3-EC68E56F10F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -33,6 +35,10 @@ Global
 		{1D97C1A0-C009-4765-90AE-E5E4761EDD6D}.Debug|AVR.Build.0 = Debug|AVR
 		{1D97C1A0-C009-4765-90AE-E5E4761EDD6D}.Release|AVR.ActiveCfg = Release|AVR
 		{1D97C1A0-C009-4765-90AE-E5E4761EDD6D}.Release|AVR.Build.0 = Release|AVR
+		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Debug|AVR.ActiveCfg = Debug|AVR
+		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Debug|AVR.Build.0 = Debug|AVR
+		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Release|AVR.ActiveCfg = Release|AVR
+		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

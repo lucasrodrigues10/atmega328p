@@ -5,6 +5,7 @@
 
 /*
 	www.embarcados.com.br/timers-do-atmega328-no-arduino/
+	www.microcontrolandos.blogspot.com.br/2014/02/avr-timer0.html
 	TCCRxA/B (Controle do timer e contador)
 	TIMSK (Mascara de interrupção para timer e contador);
 	TCNTx (Registro para contagem do timer e contador).

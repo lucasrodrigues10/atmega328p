@@ -15,8 +15,8 @@ int main(void)
 	TCCR1B = 0;
 	TCNT1 = 0;
 	
-	OCR1A = 0X3D09; //(16M/1024)*1 = 15625 = 3D09
-	TCCR1B |= ((1<<WGM12)|(1<<CS10)|(1<<CS12));
+	OCR1A = 15625; //(16M/1024)*1 = 15625 = 3D09
+	TCCR1B |= ((1<<WGM12)|(1<<CS10)|(1<<CS12)); //prescaler 1024 e ctc mode
 	TIMSK1 |= (1<<OCIE1A);
 	
 	sei();

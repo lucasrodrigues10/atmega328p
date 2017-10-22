@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{bc79338b-992d-4307-b4a3-ec68e56f10f8}</ProjectGuid>
+    <ProjectGuid>{45e37a7e-414f-4f6e-b77d-487981fda37f}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>timer_ctc</AssemblyName>
-    <Name>timer_ctc</Name>
-    <RootNamespace>timer_ctc</RootNamespace>
+    <AssemblyName>timer0</AssemblyName>
+    <Name>timer0_ctc</Name>
+    <RootNamespace>timer0</RootNamespace>
     <ToolchainFlavour>WinAVR</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>

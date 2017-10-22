@@ -58,9 +58,9 @@ main.d
 C_DEPS_AS_ARGS +=  \
 main.d
 
-OUTPUT_FILE_PATH +=timer1_ctc.elf
+OUTPUT_FILE_PATH +=timer0_ctc.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=timer1_ctc.elf
+OUTPUT_FILE_PATH_AS_ARGS +=timer0_ctc.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -107,13 +107,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 4.3.3
-	$(QUOTE)C:\WinAVR-20100110\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="timer1_ctc.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections  -mmcu=atmega328p   
+	$(QUOTE)C:\WinAVR-20100110\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="timer0_ctc.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections  -mmcu=atmega328p   
 	@echo Finished building target: $@
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "timer1_ctc.elf" "timer1_ctc.hex"
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "timer1_ctc.elf" "timer1_ctc.eep" || exit 0
-	"C:\WinAVR-20100110\bin\avr-objdump.exe" -h -S "timer1_ctc.elf" > "timer1_ctc.lss"
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "timer1_ctc.elf" "timer1_ctc.srec"
-	"C:\WinAVR-20100110\bin\avr-size.exe" "timer1_ctc.elf"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "timer0_ctc.elf" "timer0_ctc.hex"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "timer0_ctc.elf" "timer0_ctc.eep" || exit 0
+	"C:\WinAVR-20100110\bin\avr-objdump.exe" -h -S "timer0_ctc.elf" > "timer0_ctc.lss"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "timer0_ctc.elf" "timer0_ctc.srec"
+	"C:\WinAVR-20100110\bin\avr-size.exe" "timer0_ctc.elf"
 	
 	
 
@@ -125,5 +125,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "timer1_ctc.elf" "timer1_ctc.a" "timer1_ctc.hex" "timer1_ctc.lss" "timer1_ctc.eep" "timer1_ctc.map" "timer1_ctc.srec" "timer1_ctc.usersignatures"
+	rm -rf "timer0_ctc.elf" "timer0_ctc.a" "timer0_ctc.hex" "timer0_ctc.lss" "timer0_ctc.eep" "timer0_ctc.map" "timer0_ctc.srec" "timer0_ctc.usersignatures"
 	

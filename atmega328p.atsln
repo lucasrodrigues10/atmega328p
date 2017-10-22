@@ -7,11 +7,15 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "acende_led_botao", "BlinkAt
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "interrupcao_led_botao", "interrupcao_led_botao\interrupcao_led_botao.cproj", "{5E01D7E3-68DE-4E08-B015-92BEC2F47A7F}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer_normal", "timer\timer_normal.cproj", "{5A01F472-FCBE-4AF4-8C56-00FE0868827D}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer1_normal", "timer\timer1_normal.cproj", "{5A01F472-FCBE-4AF4-8C56-00FE0868827D}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "pisca_led", "pisca_led\pisca_led.cproj", "{1D97C1A0-C009-4765-90AE-E5E4761EDD6D}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer_ctc", "timer_ctc\timer_ctc.cproj", "{BC79338B-992D-4307-B4A3-EC68E56F10F8}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer1_ctc", "timer_ctc\timer1_ctc.cproj", "{BC79338B-992D-4307-B4A3-EC68E56F10F8}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "fast_pwm", "pwm\fast_pwm.cproj", "{6AB6ACE3-E9EC-4127-9B81-E9A74524A958}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer0_ctc", "timer0\timer0_ctc.cproj", "{45E37A7E-414F-4F6E-B77D-487981FDA37F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Debug|AVR.Build.0 = Debug|AVR
 		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Release|AVR.ActiveCfg = Release|AVR
 		{BC79338B-992D-4307-B4A3-EC68E56F10F8}.Release|AVR.Build.0 = Release|AVR
+		{6AB6ACE3-E9EC-4127-9B81-E9A74524A958}.Debug|AVR.ActiveCfg = Debug|AVR
+		{6AB6ACE3-E9EC-4127-9B81-E9A74524A958}.Debug|AVR.Build.0 = Debug|AVR
+		{6AB6ACE3-E9EC-4127-9B81-E9A74524A958}.Release|AVR.ActiveCfg = Release|AVR
+		{6AB6ACE3-E9EC-4127-9B81-E9A74524A958}.Release|AVR.Build.0 = Release|AVR
+		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Debug|AVR.ActiveCfg = Debug|AVR
+		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Debug|AVR.Build.0 = Debug|AVR
+		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Release|AVR.ActiveCfg = Release|AVR
+		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

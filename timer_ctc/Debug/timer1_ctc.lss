@@ -1,5 +1,5 @@
 
-timer_ctc.elf:     file format elf32-avr
+timer1_ctc.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -97,12 +97,12 @@ int main(void)
   a0:	10 92 85 00 	sts	0x0085, r1
   a4:	10 92 84 00 	sts	0x0084, r1
 	
-	OCR1A = 0X3D09; //(16M/1024)*1 = 15625 = 3D09
+	OCR1A = 15625; //(16M/1024)*1 = 15625 = 3D09
   a8:	89 e0       	ldi	r24, 0x09	; 9
   aa:	9d e3       	ldi	r25, 0x3D	; 61
   ac:	90 93 89 00 	sts	0x0089, r25
   b0:	80 93 88 00 	sts	0x0088, r24
-	TCCR1B |= ((1<<WGM12)|(1<<CS10)|(1<<CS12));
+	TCCR1B |= ((1<<WGM12)|(1<<CS10)|(1<<CS12)); //prescaler 1024 e ctc mode
   b4:	80 81       	ld	r24, Z
   b6:	8d 60       	ori	r24, 0x0D	; 13
   b8:	80 83       	st	Z, r24

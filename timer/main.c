@@ -6,43 +6,42 @@
 #define F_CPU 16000000UL
 
 /*
-	TCCR0 (Controle do timer e contador)
-	TIMSK (Mascara de interrupção para timer e contador);
-	TCNT0 (Registro para contagem do timer e contador).
+TCCR0 (Controle do timer e contador)
+TIMSK (Mascara de interrupção para timer e contador);
+TCNT0 (Registro para contagem do timer e contador).
 */
 unsigned char timecount;
 
 int main(void)
 {
 	cli();
-	PORTB = (1<<DDB0);
-	//_NOP(); 
 	
-	//--------------------------------------------------------------
-	// cristal externo a 7.3728MHz, então clock interno a 7.3728MHz
-	// 7.3728MHz / 1024 (prescale) = 7.2Khz => T=1/7.2kHz = 138,88us
-	// 138,88us x 180 = 25ms
-	// então TCNT = 256 - 180 = 76 (4CH)
-	//--------------------------------------------------------------
+	DDRB |= (1<<DDD0); //seta led como output
+	PORTB |= (1<<PORTB0); //acende led
+	
+	
+	TCCR1A = 0; //operacao normal
+	TCCR1B = 0;
+	TCCR1B |= (1<<CS10 | 1<<CS12);
+	
+	TCNT1 = 0xC2F7;
 
-	TCCR0B = 0x05;
-	TCNT0 = 0x4C;
-	TIMSK1 = 0X01;
+	TIMSK1 |= (1<<TOIE1);
 	
-	PORTB = 0;
 	sei();
 	
-    while (1) 
-    {
-    }
+	while (1)
+	{
+		
+	}
 }
 ISR(TIMER1_OVF_vect){
-	TCNT0 = 0x4C;
+	TCNT1 = 0xC2F7;
 	++timecount;
 	
-	if (timecount==40){
-		timecount = 0;
-		PORTB ^= PORTB0;//inverte led
-	}
+		//PORTB &= ~(1<<PORTB0); //acende led
+
+			PORTB ^= 0b00000001;//inverte led
+
 }
 

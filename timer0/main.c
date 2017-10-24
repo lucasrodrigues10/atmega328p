@@ -33,8 +33,11 @@ int main(void)
 	
 	TCCR0A |= ((1<<WGM10)); //set ctc bit
 	TCCR0B |= (1<<CS02 | 1<<CS00); //seta o prescaler para 1024
-	OCR0A = 15625; // frequencia de 1 hz
+	
+	OCR0A = 15625; // (16M/1024)*1 = 15625 = 3D09
+	
 	TIMSK0 |= (1<<OCIE0A); //habilita a interrupcao do timer
+	
 	sei(); //comeca interrupcao
 	while (1)
 	{
@@ -43,7 +46,7 @@ int main(void)
 ISR(TIMER0_COMPA_vect){
 	count++;
 	if(count >100){
-		PORTB ^= (1<<PORTB0);//muda estado
+		PORTB ^= (1<<PORTB0);//muda estado do led
 		count = 0;
 	}
 }

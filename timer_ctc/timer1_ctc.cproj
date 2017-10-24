@@ -15,7 +15,7 @@
     <AssemblyName>timer_ctc</AssemblyName>
     <Name>timer1_ctc</Name>
     <RootNamespace>timer_ctc</RootNamespace>
-    <ToolchainFlavour>WinAVR</ToolchainFlavour>
+    <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>

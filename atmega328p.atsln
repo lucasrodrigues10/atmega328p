@@ -17,6 +17,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "fast_pwm", "pwm\fast_pwm.cp
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "timer0_ctc", "timer0\timer0_ctc.cproj", "{45E37A7E-414F-4F6E-B77D-487981FDA37F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UART", "UART", "{7885793F-0EAD-48F1-8615-47BD6CA105B3}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UART", "UART\UART.cproj", "{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -51,8 +55,15 @@ Global
 		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Debug|AVR.Build.0 = Debug|AVR
 		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Release|AVR.ActiveCfg = Release|AVR
 		{45E37A7E-414F-4F6E-B77D-487981FDA37F}.Release|AVR.Build.0 = Release|AVR
+		{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028}.Debug|AVR.Build.0 = Debug|AVR
+		{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028}.Release|AVR.ActiveCfg = Release|AVR
+		{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EFEFAFE-5A05-4DD9-B148-85C2C23FE028} = {7885793F-0EAD-48F1-8615-47BD6CA105B3}
 	EndGlobalSection
 EndGlobal

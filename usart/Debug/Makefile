@@ -58,9 +58,9 @@ main.d
 C_DEPS_AS_ARGS +=  \
 main.d
 
-OUTPUT_FILE_PATH +=timer.elf
+OUTPUT_FILE_PATH +=usart.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=timer.elf
+OUTPUT_FILE_PATH_AS_ARGS +=usart.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -107,13 +107,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 4.3.3
-	$(QUOTE)C:\WinAVR-20100110\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="timer.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections  -mmcu=atmega328p   
+	$(QUOTE)C:\WinAVR-20100110\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="usart.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections  -mmcu=atmega328p   
 	@echo Finished building target: $@
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "timer.elf" "timer.hex"
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "timer.elf" "timer.eep" || exit 0
-	"C:\WinAVR-20100110\bin\avr-objdump.exe" -h -S "timer.elf" > "timer.lss"
-	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "timer.elf" "timer.srec"
-	"C:\WinAVR-20100110\bin\avr-size.exe" "timer.elf"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "usart.elf" "usart.hex"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "usart.elf" "usart.eep" || exit 0
+	"C:\WinAVR-20100110\bin\avr-objdump.exe" -h -S "usart.elf" > "usart.lss"
+	"C:\WinAVR-20100110\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "usart.elf" "usart.srec"
+	"C:\WinAVR-20100110\bin\avr-size.exe" "usart.elf"
 	
 	
 
@@ -125,5 +125,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "timer.elf" "timer.a" "timer.hex" "timer.lss" "timer.eep" "timer.map" "timer.srec" "timer.usersignatures"
+	rm -rf "usart.elf" "usart.a" "usart.hex" "usart.lss" "usart.eep" "usart.map" "usart.srec" "usart.usersignatures"
 	

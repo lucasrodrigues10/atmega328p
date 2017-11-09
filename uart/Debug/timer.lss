@@ -1,5 +1,5 @@
 
-uart.elf:     file format elf32-avr
+timer.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn

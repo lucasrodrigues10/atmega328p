@@ -1,92 +1,38 @@
-/*
- * txSerial.c
- *
- *  Author: HHD
- */ 
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define F_CPU	16000000
-#define BUAD	9600
-#define BRC		((F_CPU/16/BUAD) - 1)
-#define TX_BUFFER_SIZE	128
+#define F_CPU 16000000UL
 
-#include <util/delay.h>
-
-char serialBuffer[TX_BUFFER_SIZE];
-uint8_t serialReadPos = 0;
-uint8_t serialWritePos = 0;
-
-void appendSerial(char c);
-void serialWrite(char  c[]);
+/*
+	www.embarcados.com.br/timers-do-atmega328-no-arduino/
+	www.microcontrolandos.blogspot.com.br/2014/02/avr-timer0.html
+	TCCRxA/B (Controle do timer e contador)
+	TIMSK (Mascara de interrupção para timer e contador);
+	TCNTx (Registro para contagem do timer e contador).
+*/
 
 int main(void)
-{	
-	UBRR0H = (BRC >> 8);
-	UBRR0L =  BRC;
+{
+	cli();
 	
-	UCSR0B = (1 << TXEN0)  | (1 << TXCIE0);
-	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
+	DDRD |= (1<<DDD6); //seta led como output
+	PORTD |= (1<<PORTD6); //acende led
+	
+	TCCR1A = 0; //operacao normal 
+	TCCR1B = 0; //limpa o registrador
+	TCCR1B |= (1<<CS10 | 1<<CS12); //prescaler = 1024 CS12=1 CS10=1 (Clock Select)
+	
+	TCNT1 = 0xC2F7; //inicia timer com estouro em (2^16-(16MHz/1024)*1Hz) = 49911 = 0xC2F7
+	TIMSK1 |= (1<<TOIE1);
 	
 	sei();
 	
-	serialWrite("HELLO\n\r");
-	serialWrite("woRLd\n\r");
-	
-	_delay_ms(1500);
-	
-	serialWrite("GOODByE\n\r");
-	
-	DDRD |= (1<<DDD6); //seta como output
-	PORTD |= (1<<PORTD6); // acende led
-	
-    while(1)
-    {
-		serialWrite("HELLO\n\r");
-		serialWrite("woRLd\n\r");
+	while (1)
+	{
 		
-		_delay_ms(1500);
-		
-		serialWrite("GOODByE\n\r");
-    }
-}
-
-void appendSerial(char c)
-{
-	serialBuffer[serialWritePos] = c;
-	serialWritePos++;
-	
-	if(serialWritePos >= TX_BUFFER_SIZE)
-	{
-		serialWritePos = 0;
 	}
 }
-
-void serialWrite(char c[])
-{
-	for(uint8_t i = 0; i < strlen(c); i++)
-	{
-		appendSerial(c[i]);
-	}
-	
-	if(UCSR0A & (1 << UDRE0))
-	{
-		UDR0 = 0;
-	}
+ISR(TIMER1_OVF_vect){
+	TCNT1 = 0xC2F7; //reseta contador	
+	PORTD ^= (1<<PORTD6);//inverte led
 }
-
-ISR(USART_TX_vect)
-{
-	if(serialReadPos != serialWritePos)
-	{
-		UDR0 = serialBuffer[serialReadPos];
-		serialReadPos++;
-		
-		if(serialReadPos >= TX_BUFFER_SIZE)
-		{
-			serialReadPos++;
-		}
-	}
-}
-

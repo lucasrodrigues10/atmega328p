@@ -11,6 +11,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "usart", "usart\usart.cproj"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "button", "button\button.cproj", "{94F6D21B-4422-4C76-B413-3F45FD1D9FC7}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HC-SR04", "HC-SR04\HC-SR04.cproj", "{AE9EE018-CE77-4388-9B6A-A9D1D4B24574}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -33,6 +35,10 @@ Global
 		{94F6D21B-4422-4C76-B413-3F45FD1D9FC7}.Debug|AVR.Build.0 = Debug|AVR
 		{94F6D21B-4422-4C76-B413-3F45FD1D9FC7}.Release|AVR.ActiveCfg = Release|AVR
 		{94F6D21B-4422-4C76-B413-3F45FD1D9FC7}.Release|AVR.Build.0 = Release|AVR
+		{AE9EE018-CE77-4388-9B6A-A9D1D4B24574}.Debug|AVR.ActiveCfg = Debug|AVR
+		{AE9EE018-CE77-4388-9B6A-A9D1D4B24574}.Debug|AVR.Build.0 = Debug|AVR
+		{AE9EE018-CE77-4388-9B6A-A9D1D4B24574}.Release|AVR.ActiveCfg = Release|AVR
+		{AE9EE018-CE77-4388-9B6A-A9D1D4B24574}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

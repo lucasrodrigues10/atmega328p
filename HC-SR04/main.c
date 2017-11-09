@@ -1,3 +1,4 @@
+/* circuitdigest.com/microcontroller-projects/distance-measurement-using-hc-sr04-avr */
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <string.h>
@@ -9,6 +10,11 @@
 
 #include <util/delay.h>
 
+static volatile int pulse = 0;//interger  to access all though the program
+
+static volatile int i = 0;// interger  to access all though the program
+
+
 void USART_Init(unsigned int ubrr){
 	/* Set Baud Rate */
 	UBRR0H = (unsigned int) (ubrr>>8);
@@ -19,6 +25,7 @@ void USART_Init(unsigned int ubrr){
 	UCSR0C = (1<<UCSR0B) | (1<<UCSZ00) | (1<<UCSZ01);
 
 }
+
 void USART_Transmit( unsigned char data )
 {
 	/* Wait for empty transmit buffer */
@@ -34,6 +41,7 @@ void LED_Init(){
 	/* Turn on LED */
 	PORTD |= (1<<PORTD6);
 }
+
 
 void usart_putchar( unsigned char data )
 {
@@ -57,6 +65,7 @@ void usart_putstring(char s[])
 }
 
 int main(void)
+
 {
 	/* Turn off interrupt */
 	cli();
@@ -66,17 +75,74 @@ int main(void)
 	
 	/* Init LED */
 	LED_Init();
-		
-	/* Turn on interrupt */
-	sei();
 	
+	/* Trigger OUTPUT*/
+	DDRD |= (1<<DDD7);
+	/* Echo INPUT */
+	DDRD &= ~(1<<DDD2);
+
+	_delay_ms(50);
+
+	EIMSK|=(1<<INT0);//enabling interrupt0
+
+	EICRA |=(1<<ISC00);//setting interrupt triggering logic change
+
+	int16_t COUNTA = 0;//storing digital output
+
+	char SHOWA [3];
+	
+	sei();// enabling global interrupts
+
 	while(1)
+
 	{
-		/* Wait 1500ms */
-		_delay_ms(1500);
-		/* Change led state */
-		PORTD ^= (1<<PORTD6);
-		/* Print important string */
-		usart_putstring( "Sou foda!\r\n" );
+		/* Trigger Enable */
+		PORTD|=(1<<PIND7);
+
+		_delay_us(15);
+
+		/* Trigger Disable */
+		PORTD &=~(1<<PIND7);
+
+		COUNTA = pulse/58;
+		
+		usart_putstring("DISTANCE = \n\r");
+
+		itoa(COUNTA,SHOWA,10); 
+
+		usart_putstring(SHOWA);
+		usart_putstring("cm\n\r");
+
 	}
+
+}
+
+ISR(INT0_vect)//interrupt service routine when there is a change in logic level
+
+{
+
+	if (i==1)//when logic from HIGH to LOW
+
+	{
+
+		TCCR1B=0;//disabling counter
+
+		pulse=TCNT1;//count memory is updated to integer
+
+		TCNT1=0;//resetting the counter memory
+
+		i=0;
+
+	}
+
+	if (i==0)//when logic change from LOW to HIGH
+
+	{
+
+		TCCR1B|=(1<<CS10);//enabling counter
+
+		i=1;
+
+	}
+
 }

@@ -1,0 +1,548 @@
+
+blink_timer.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000012  00800100  000002f0  00000384  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000002f0  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000007  00800112  00800112  00000396  2**0
+                  ALLOC
+  3 .debug_aranges 00000058  00000000  00000000  00000396  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000009a  00000000  00000000  000003ee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000002d1  00000000  00000000  00000488  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000017f  00000000  00000000  00000759  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000032e  00000000  00000000  000008d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000090  00000000  00000000  00000c08  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000163  00000000  00000000  00000c98  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000010f  00000000  00000000  00000dfb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000e0  00000000  00000000  00000f0a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+	/* Set frame format: 8 data; 1stop bit */
+	UCSR0C = (1<<UCSR0B) | (1<<UCSZ00) | (1<<UCSZ01);
+
+}
+void USART_Transmit( unsigned char data )
+{
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 db 00 	jmp	0x1b6	; 0x1b6 <__vector_4>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e0 ef       	ldi	r30, 0xF0	; 240
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <.do_copy_data_start>
+
+00000080 <.do_copy_data_loop>:
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+
+00000084 <.do_copy_data_start>:
+  84:	a2 31       	cpi	r26, 0x12	; 18
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <.do_copy_data_loop>
+
+0000008a <__do_clear_bss>:
+  8a:	11 e0       	ldi	r17, 0x01	; 1
+  8c:	a2 e1       	ldi	r26, 0x12	; 18
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a9 31       	cpi	r26, 0x19	; 25
+  96:	b1 07       	cpc	r27, r17
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 b7 00 	call	0x16e	; 0x16e <main>
+  9e:	0c 94 76 01 	jmp	0x2ec	; 0x2ec <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <USART_Init>:
+
+#include <util/delay.h>
+
+void USART_Init(unsigned int ubrr){
+	/* Set Baud Rate */
+	UBRR0H = (unsigned int) (ubrr>>8);
+  a6:	90 93 c5 00 	sts	0x00C5, r25
+	UBRR0L = (unsigned char) ubrr;
+  aa:	80 93 c4 00 	sts	0x00C4, r24
+	/* Activate Transmissor (TX) e Receptor (RX) */
+	UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+  ae:	e1 ec       	ldi	r30, 0xC1	; 193
+  b0:	f0 e0       	ldi	r31, 0x00	; 0
+  b2:	88 e1       	ldi	r24, 0x18	; 24
+  b4:	80 83       	st	Z, r24
+	/* Set frame format: 8 data; 1stop bit */
+	UCSR0C = (1<<UCSR0B) | (1<<UCSZ00) | (1<<UCSZ01);
+  b6:	20 81       	ld	r18, Z
+  b8:	81 e0       	ldi	r24, 0x01	; 1
+  ba:	90 e0       	ldi	r25, 0x00	; 0
+  bc:	02 c0       	rjmp	.+4      	; 0xc2 <USART_Init+0x1c>
+  be:	88 0f       	add	r24, r24
+  c0:	99 1f       	adc	r25, r25
+  c2:	2a 95       	dec	r18
+  c4:	e2 f7       	brpl	.-8      	; 0xbe <USART_Init+0x18>
+  c6:	86 60       	ori	r24, 0x06	; 6
+  c8:	80 93 c2 00 	sts	0x00C2, r24
+
+}
+  cc:	08 95       	ret
+
+000000ce <LED_Init>:
+	UDR0 = data;
+}
+
+void LED_Init(){
+	/* Set led OUTPUT */
+	DDRD |= (1<<DDD6);
+  ce:	ea e2       	ldi	r30, 0x2A	; 42
+  d0:	f0 e0       	ldi	r31, 0x00	; 0
+  d2:	80 81       	ld	r24, Z
+  d4:	80 64       	ori	r24, 0x40	; 64
+  d6:	80 83       	st	Z, r24
+	/* Turn on LED */
+	PORTD |= (1<<PORTD6);
+  d8:	eb e2       	ldi	r30, 0x2B	; 43
+  da:	f0 e0       	ldi	r31, 0x00	; 0
+  dc:	80 81       	ld	r24, Z
+  de:	80 64       	ori	r24, 0x40	; 64
+  e0:	80 83       	st	Z, r24
+}
+  e2:	08 95       	ret
+
+000000e4 <usart_putchar>:
+
+void usart_putchar( unsigned char data )
+{
+  e4:	98 2f       	mov	r25, r24
+	// Do nothing while UDRE0 indicates data still in transit
+	while( !(UCSR0A & (1<<UDRE0)) ) {}
+  e6:	e0 ec       	ldi	r30, 0xC0	; 192
+  e8:	f0 e0       	ldi	r31, 0x00	; 0
+  ea:	80 81       	ld	r24, Z
+  ec:	85 ff       	sbrs	r24, 5
+  ee:	fd cf       	rjmp	.-6      	; 0xea <usart_putchar+0x6>
+	
+	// Put data into buffer
+	UDR0 = data;
+  f0:	90 93 c6 00 	sts	0x00C6, r25
+}
+  f4:	08 95       	ret
+
+000000f6 <usart_putstring>:
+
+
+void usart_putstring(char s[])
+{
+  f6:	cf 93       	push	r28
+  f8:	df 93       	push	r29
+  fa:	fc 01       	movw	r30, r24
+	int i = 0;
+	
+	while (s[i] != 0x00)
+  fc:	80 81       	ld	r24, Z
+  fe:	88 23       	and	r24, r24
+ 100:	39 f0       	breq	.+14     	; 0x110 <usart_putstring+0x1a>
+ 102:	ef 01       	movw	r28, r30
+	{
+		usart_putchar(s[i]);
+ 104:	0e 94 72 00 	call	0xe4	; 0xe4 <usart_putchar>
+
+void usart_putstring(char s[])
+{
+	int i = 0;
+	
+	while (s[i] != 0x00)
+ 108:	89 81       	ldd	r24, Y+1	; 0x01
+ 10a:	21 96       	adiw	r28, 0x01	; 1
+ 10c:	88 23       	and	r24, r24
+ 10e:	d1 f7       	brne	.-12     	; 0x104 <usart_putstring+0xe>
+	{
+		usart_putchar(s[i]);
+		i++;
+	}
+}
+ 110:	df 91       	pop	r29
+ 112:	cf 91       	pop	r28
+ 114:	08 95       	ret
+
+00000116 <init>:
+/*******************************************INITALIZE PORTS, TIMER, AND INTURRUPTS*******************************************/
+void init() {
+	USART_Init(MYUBRR);
+ 116:	87 e6       	ldi	r24, 0x67	; 103
+ 118:	90 e0       	ldi	r25, 0x00	; 0
+ 11a:	0e 94 53 00 	call	0xa6	; 0xa6 <USART_Init>
+	LED_Init();
+ 11e:	0e 94 67 00 	call	0xce	; 0xce <LED_Init>
+	
+	DDRC &= ~(1<<DDC5);						// Set Pin C5 as input to read Echo
+ 122:	e7 e2       	ldi	r30, 0x27	; 39
+ 124:	f0 e0       	ldi	r31, 0x00	; 0
+ 126:	80 81       	ld	r24, Z
+ 128:	8f 7d       	andi	r24, 0xDF	; 223
+ 12a:	80 83       	st	Z, r24
+	PORTC |= (1<<PORTC5);					// Enable pull up on C5
+ 12c:	e8 e2       	ldi	r30, 0x28	; 40
+ 12e:	f0 e0       	ldi	r31, 0x00	; 0
+ 130:	80 81       	ld	r24, Z
+ 132:	80 62       	ori	r24, 0x20	; 32
+ 134:	80 83       	st	Z, r24
+	PORTC &= ~(1<<PORTC4);						// Init C4 as low (trigger)
+ 136:	80 81       	ld	r24, Z
+ 138:	8f 7e       	andi	r24, 0xEF	; 239
+ 13a:	80 83       	st	Z, r24
+
+	PRR &= ~(1<<PRTIM1);					// To activate timer1 module
+ 13c:	e4 e6       	ldi	r30, 0x64	; 100
+ 13e:	f0 e0       	ldi	r31, 0x00	; 0
+ 140:	80 81       	ld	r24, Z
+ 142:	87 7f       	andi	r24, 0xF7	; 247
+ 144:	80 83       	st	Z, r24
+	TCNT1 = 0;								// Initial timer value
+ 146:	10 92 85 00 	sts	0x0085, r1
+ 14a:	10 92 84 00 	sts	0x0084, r1
+	TCCR1B |= (1<<CS10) | (1<<CS12);					// Timer without prescaller. Since default clock for atmega328p is 1Mhz period is 1uS
+ 14e:	e1 e8       	ldi	r30, 0x81	; 129
+ 150:	f0 e0       	ldi	r31, 0x00	; 0
+ 152:	80 81       	ld	r24, Z
+ 154:	85 60       	ori	r24, 0x05	; 5
+ 156:	80 83       	st	Z, r24
+	TCCR1B |= (1<<ICES1);					// First capture on rising edge
+ 158:	80 81       	ld	r24, Z
+ 15a:	80 64       	ori	r24, 0x40	; 64
+ 15c:	80 83       	st	Z, r24
+
+	PCICR = (1<<PCIE1);						// Enable PCINT[14:8] we use pin C5 which is PCINT13
+ 15e:	82 e0       	ldi	r24, 0x02	; 2
+ 160:	80 93 68 00 	sts	0x0068, r24
+	PCMSK1 = (1<<PCINT13);					// Enable C5 interrupt
+ 164:	80 e2       	ldi	r24, 0x20	; 32
+ 166:	80 93 6c 00 	sts	0x006C, r24
+	sei();									// Enable Global Interrupts
+ 16a:	78 94       	sei
+}
+ 16c:	08 95       	ret
+
+0000016e <main>:
+uint16_t numuS = 0;
+char str[5];
+
+/*******************************************MAIN PROGRAM*******************************************/
+int main() {
+	init();
+ 16e:	0e 94 8b 00 	call	0x116	; 0x116 <init>
+	PORTD &= ~(1<<PORTD6);
+ 172:	eb e2       	ldi	r30, 0x2B	; 43
+ 174:	f0 e0       	ldi	r31, 0x00	; 0
+ 176:	80 81       	ld	r24, Z
+ 178:	8f 7b       	andi	r24, 0xBF	; 191
+ 17a:	80 83       	st	Z, r24
+ 17c:	28 e5       	ldi	r18, 0x58	; 88
+ 17e:	32 e0       	ldi	r19, 0x02	; 2
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 180:	60 e9       	ldi	r22, 0x90	; 144
+ 182:	71 e0       	ldi	r23, 0x01	; 1
+	while (1) {
+		_delay_ms(60); 							// To allow sufficient time between queries (60ms min)
+		PORTC |= (1<<PORTC4);						// Set trigger high
+ 184:	e8 e2       	ldi	r30, 0x28	; 40
+ 186:	f0 e0       	ldi	r31, 0x00	; 0
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 188:	a0 e5       	ldi	r26, 0x50	; 80
+		_delay_us(15);							// for 10uS
+		PORTC &= ~(1<<PORTC4);						// to trigger the ultrasonic module
+ 18a:	48 e5       	ldi	r20, 0x58	; 88
+ 18c:	52 e0       	ldi	r21, 0x02	; 2
+ 18e:	05 c0       	rjmp	.+10     	; 0x19a <main+0x2c>
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 190:	cb 01       	movw	r24, r22
+ 192:	01 97       	sbiw	r24, 0x01	; 1
+ 194:	f1 f7       	brne	.-4      	; 0x192 <main+0x24>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 196:	21 50       	subi	r18, 0x01	; 1
+ 198:	30 40       	sbci	r19, 0x00	; 0
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 19a:	21 15       	cp	r18, r1
+ 19c:	31 05       	cpc	r19, r1
+ 19e:	c1 f7       	brne	.-16     	; 0x190 <main+0x22>
+int main() {
+	init();
+	PORTD &= ~(1<<PORTD6);
+	while (1) {
+		_delay_ms(60); 							// To allow sufficient time between queries (60ms min)
+		PORTC |= (1<<PORTC4);						// Set trigger high
+ 1a0:	80 81       	ld	r24, Z
+ 1a2:	80 61       	ori	r24, 0x10	; 16
+ 1a4:	80 83       	st	Z, r24
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 1a6:	8a 2f       	mov	r24, r26
+ 1a8:	8a 95       	dec	r24
+ 1aa:	f1 f7       	brne	.-4      	; 0x1a8 <main+0x3a>
+		_delay_us(15);							// for 10uS
+		PORTC &= ~(1<<PORTC4);						// to trigger the ultrasonic module
+ 1ac:	80 81       	ld	r24, Z
+ 1ae:	8f 7e       	andi	r24, 0xEF	; 239
+ 1b0:	80 83       	st	Z, r24
+ 1b2:	9a 01       	movw	r18, r20
+ 1b4:	f2 cf       	rjmp	.-28     	; 0x19a <main+0x2c>
+
+000001b6 <__vector_4>:
+	}
+}
+/*******************************************INTURRUPT PCINT1 FOR PIN C5*******************************************/
+
+ISR(PCINT1_vect) {
+ 1b6:	1f 92       	push	r1
+ 1b8:	0f 92       	push	r0
+ 1ba:	0f b6       	in	r0, 0x3f	; 63
+ 1bc:	0f 92       	push	r0
+ 1be:	11 24       	eor	r1, r1
+ 1c0:	0f 93       	push	r16
+ 1c2:	1f 93       	push	r17
+ 1c4:	2f 93       	push	r18
+ 1c6:	3f 93       	push	r19
+ 1c8:	4f 93       	push	r20
+ 1ca:	5f 93       	push	r21
+ 1cc:	6f 93       	push	r22
+ 1ce:	7f 93       	push	r23
+ 1d0:	8f 93       	push	r24
+ 1d2:	9f 93       	push	r25
+ 1d4:	af 93       	push	r26
+ 1d6:	bf 93       	push	r27
+ 1d8:	ef 93       	push	r30
+ 1da:	ff 93       	push	r31
+	if (bit_is_set(PINC,PINC5)) {
+ 1dc:	35 9b       	sbis	0x06, 5	; 6
+ 1de:	0a c0       	rjmp	.+20     	; 0x1f4 <__vector_4+0x3e>
+		// Checks if echo is high
+		TCNT1 = 0;								// Reset Timer
+ 1e0:	10 92 85 00 	sts	0x0085, r1
+ 1e4:	10 92 84 00 	sts	0x0084, r1
+		PORTD |= (1<<PORTD6);
+ 1e8:	eb e2       	ldi	r30, 0x2B	; 43
+ 1ea:	f0 e0       	ldi	r31, 0x00	; 0
+ 1ec:	80 81       	ld	r24, Z
+ 1ee:	80 64       	ori	r24, 0x40	; 64
+ 1f0:	80 83       	st	Z, r24
+ 1f2:	24 c0       	rjmp	.+72     	; 0x23c <__vector_4+0x86>
+	} else {
+		numuS = TCNT1;					// Save Timer value
+ 1f4:	80 91 84 00 	lds	r24, 0x0084
+ 1f8:	90 91 85 00 	lds	r25, 0x0085
+ 1fc:	90 93 13 01 	sts	0x0113, r25
+ 200:	80 93 12 01 	sts	0x0112, r24
+		//uint8_t oldSREG = SREG;
+		cli();
+ 204:	f8 94       	cli
+		usart_putstring("Distancia:   ");
+ 206:	80 e0       	ldi	r24, 0x00	; 0
+ 208:	91 e0       	ldi	r25, 0x01	; 1
+ 20a:	0e 94 7b 00 	call	0xf6	; 0xf6 <usart_putstring>
+		itoa((int)(numuS/58),str,10);
+ 20e:	80 91 12 01 	lds	r24, 0x0112
+ 212:	90 91 13 01 	lds	r25, 0x0113
+ 216:	6a e3       	ldi	r22, 0x3A	; 58
+ 218:	70 e0       	ldi	r23, 0x00	; 0
+ 21a:	0e 94 31 01 	call	0x262	; 0x262 <__udivmodhi4>
+ 21e:	cb 01       	movw	r24, r22
+ 220:	04 e1       	ldi	r16, 0x14	; 20
+ 222:	11 e0       	ldi	r17, 0x01	; 1
+ 224:	b8 01       	movw	r22, r16
+ 226:	4a e0       	ldi	r20, 0x0A	; 10
+ 228:	50 e0       	ldi	r21, 0x00	; 0
+ 22a:	0e 94 45 01 	call	0x28a	; 0x28a <itoa>
+		usart_putstring(str);		// Write Timer Value / 58 (cm). Distance in cm = (uS of echo high) / 58
+ 22e:	c8 01       	movw	r24, r16
+ 230:	0e 94 7b 00 	call	0xf6	; 0xf6 <usart_putstring>
+		usart_putstring("\n\r");
+ 234:	8e e0       	ldi	r24, 0x0E	; 14
+ 236:	91 e0       	ldi	r25, 0x01	; 1
+ 238:	0e 94 7b 00 	call	0xf6	; 0xf6 <usart_putstring>
+		//sei();
+		//SREG = oldSREG;							// Enable interrupts		
+	}
+ 23c:	ff 91       	pop	r31
+ 23e:	ef 91       	pop	r30
+ 240:	bf 91       	pop	r27
+ 242:	af 91       	pop	r26
+ 244:	9f 91       	pop	r25
+ 246:	8f 91       	pop	r24
+ 248:	7f 91       	pop	r23
+ 24a:	6f 91       	pop	r22
+ 24c:	5f 91       	pop	r21
+ 24e:	4f 91       	pop	r20
+ 250:	3f 91       	pop	r19
+ 252:	2f 91       	pop	r18
+ 254:	1f 91       	pop	r17
+ 256:	0f 91       	pop	r16
+ 258:	0f 90       	pop	r0
+ 25a:	0f be       	out	0x3f, r0	; 63
+ 25c:	0f 90       	pop	r0
+ 25e:	1f 90       	pop	r1
+ 260:	18 95       	reti
+
+00000262 <__udivmodhi4>:
+ 262:	aa 1b       	sub	r26, r26
+ 264:	bb 1b       	sub	r27, r27
+ 266:	51 e1       	ldi	r21, 0x11	; 17
+ 268:	07 c0       	rjmp	.+14     	; 0x278 <__udivmodhi4_ep>
+
+0000026a <__udivmodhi4_loop>:
+ 26a:	aa 1f       	adc	r26, r26
+ 26c:	bb 1f       	adc	r27, r27
+ 26e:	a6 17       	cp	r26, r22
+ 270:	b7 07       	cpc	r27, r23
+ 272:	10 f0       	brcs	.+4      	; 0x278 <__udivmodhi4_ep>
+ 274:	a6 1b       	sub	r26, r22
+ 276:	b7 0b       	sbc	r27, r23
+
+00000278 <__udivmodhi4_ep>:
+ 278:	88 1f       	adc	r24, r24
+ 27a:	99 1f       	adc	r25, r25
+ 27c:	5a 95       	dec	r21
+ 27e:	a9 f7       	brne	.-22     	; 0x26a <__udivmodhi4_loop>
+ 280:	80 95       	com	r24
+ 282:	90 95       	com	r25
+ 284:	bc 01       	movw	r22, r24
+ 286:	cd 01       	movw	r24, r26
+ 288:	08 95       	ret
+
+0000028a <itoa>:
+ 28a:	fb 01       	movw	r30, r22
+ 28c:	9f 01       	movw	r18, r30
+ 28e:	e8 94       	clt
+ 290:	42 30       	cpi	r20, 0x02	; 2
+ 292:	c4 f0       	brlt	.+48     	; 0x2c4 <itoa+0x3a>
+ 294:	45 32       	cpi	r20, 0x25	; 37
+ 296:	b4 f4       	brge	.+44     	; 0x2c4 <itoa+0x3a>
+ 298:	4a 30       	cpi	r20, 0x0A	; 10
+ 29a:	29 f4       	brne	.+10     	; 0x2a6 <itoa+0x1c>
+ 29c:	97 fb       	bst	r25, 7
+ 29e:	1e f4       	brtc	.+6      	; 0x2a6 <itoa+0x1c>
+ 2a0:	90 95       	com	r25
+ 2a2:	81 95       	neg	r24
+ 2a4:	9f 4f       	sbci	r25, 0xFF	; 255
+ 2a6:	64 2f       	mov	r22, r20
+ 2a8:	77 27       	eor	r23, r23
+ 2aa:	0e 94 31 01 	call	0x262	; 0x262 <__udivmodhi4>
+ 2ae:	80 5d       	subi	r24, 0xD0	; 208
+ 2b0:	8a 33       	cpi	r24, 0x3A	; 58
+ 2b2:	0c f0       	brlt	.+2      	; 0x2b6 <itoa+0x2c>
+ 2b4:	89 5d       	subi	r24, 0xD9	; 217
+ 2b6:	81 93       	st	Z+, r24
+ 2b8:	cb 01       	movw	r24, r22
+ 2ba:	00 97       	sbiw	r24, 0x00	; 0
+ 2bc:	a1 f7       	brne	.-24     	; 0x2a6 <itoa+0x1c>
+ 2be:	16 f4       	brtc	.+4      	; 0x2c4 <itoa+0x3a>
+ 2c0:	5d e2       	ldi	r21, 0x2D	; 45
+ 2c2:	51 93       	st	Z+, r21
+ 2c4:	10 82       	st	Z, r1
+ 2c6:	c9 01       	movw	r24, r18
+ 2c8:	0c 94 66 01 	jmp	0x2cc	; 0x2cc <strrev>
+
+000002cc <strrev>:
+ 2cc:	dc 01       	movw	r26, r24
+ 2ce:	fc 01       	movw	r30, r24
+ 2d0:	67 2f       	mov	r22, r23
+ 2d2:	71 91       	ld	r23, Z+
+ 2d4:	77 23       	and	r23, r23
+ 2d6:	e1 f7       	brne	.-8      	; 0x2d0 <strrev+0x4>
+ 2d8:	32 97       	sbiw	r30, 0x02	; 2
+ 2da:	04 c0       	rjmp	.+8      	; 0x2e4 <strrev+0x18>
+ 2dc:	7c 91       	ld	r23, X
+ 2de:	6d 93       	st	X+, r22
+ 2e0:	70 83       	st	Z, r23
+ 2e2:	62 91       	ld	r22, -Z
+ 2e4:	ae 17       	cp	r26, r30
+ 2e6:	bf 07       	cpc	r27, r31
+ 2e8:	c8 f3       	brcs	.-14     	; 0x2dc <strrev+0x10>
+ 2ea:	08 95       	ret
+
+000002ec <_exit>:
+ 2ec:	f8 94       	cli
+
+000002ee <__stop_program>:
+ 2ee:	ff cf       	rjmp	.-2      	; 0x2ee <__stop_program>

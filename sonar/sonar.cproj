@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{ae9ee018-ce77-4388-9b6a-a9d1d4b24574}</ProjectGuid>
+    <ProjectGuid>{7871caa5-495d-4e49-8097-871ece9b45e7}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>HC-SR04</AssemblyName>
-    <Name>HC-SR04</Name>
-    <RootNamespace>HC-SR04</RootNamespace>
+    <AssemblyName>sonar</AssemblyName>
+    <Name>sonar</Name>
+    <RootNamespace>sonar</RootNamespace>
     <ToolchainFlavour>WinAVR</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>

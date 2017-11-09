@@ -10,9 +10,9 @@
 
 #include <util/delay.h>
 
-static volatile int pulse = 0;//interger  to access all though the program
+static volatile int pulse = 0;
 
-static volatile int i = 0;// interger  to access all though the program
+static volatile int i = 0;
 
 
 void USART_Init(unsigned int ubrr){
@@ -112,7 +112,8 @@ int main(void)
 
 		usart_putstring(SHOWA);
 		usart_putstring("cm\n\r");
-
+		
+		_delay_ms(1000);
 	}
 
 }

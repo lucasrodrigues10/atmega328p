@@ -14,6 +14,8 @@ static volatile int pulse = 0;
 
 static volatile int i = 0;
 
+static volatile int timer = 0;
+
 
 void USART_Init(unsigned int ubrr){
 	/* Set Baud Rate */
@@ -76,6 +78,8 @@ int main(void)
 	/* Init LED */
 	LED_Init();
 	
+	TIMSK1 |=(1<<TOIE1); //enable timer interrupt
+	
 	/* Trigger OUTPUT*/
 	DDRD |= (1<<DDD7);
 	/* Echo INPUT */
@@ -104,7 +108,7 @@ int main(void)
 		/* Trigger Disable */
 		PORTD &=~(1<<PIND7);
 
-		COUNTA = pulse/58;
+		COUNTA = pulse/(58*2);
 		
 		usart_putstring("DISTANCE = \n\r");
 
@@ -113,7 +117,8 @@ int main(void)
 		usart_putstring(SHOWA);
 		usart_putstring("cm\n\r");
 		
-		_delay_ms(1000);
+		
+		_delay_ms(500);
 	}
 
 }
@@ -126,24 +131,35 @@ ISR(INT0_vect)//interrupt service routine when there is a change in logic level
 
 	{
 
-		TCCR1B=0;//disabling counter
+		//TCCR1B=0;//disabling counter
 
-		pulse=TCNT1;//count memory is updated to integer
+		pulse=TCNT1 + timer*65535;//count memory is updated to integer
 
 		TCNT1=0;//resetting the counter memory
 
 		i=0;
+		
+		timer = 0;
 
 	}
 
 	if (i==0)//when logic change from LOW to HIGH
 
 	{
+		timer = 0;
 
-		TCCR1B|=(1<<CS10);//enabling counter
+		TCCR1B|=(1<<CS11);//enabling counter
 
 		i=1;
 
 	}
 
+}
+ISR(TIMER1_OVF_vect)
+{
+	if (i == 1) {
+		TCNT1 = 0;
+		timer++;
+		PORTD |= (1<<PORTD6);
+	}
 }

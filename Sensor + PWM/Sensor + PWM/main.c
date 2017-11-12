@@ -231,7 +231,6 @@ ISR(TIMER2_OVF_vect){
 			direction = -1;
 		}
 		if(direction == 0){
-			OCR0A = (pulse/(58*2*100))*255;
 			Backward_Wheels();
 			direction = 1;
 		}

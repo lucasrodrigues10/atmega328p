@@ -11,7 +11,7 @@
 #define MYUBRR     ((F_CPU/16/BAUD) - 1)
 
 /* Data For Usart Print */
-#define MAX_DATA 1000
+#define MAX_DATA 30
 
 /* Motor */
 #define step .1
@@ -32,10 +32,13 @@ static volatile int i = 0;
 static volatile int timer = 0;
 
 /* Stores PWM interruption */
-static volatile direction = -2;
+static volatile direction = 0;
 
 /* Counts number of interruptions */
 static volatile Int_Counter = 0;
+
+/* Data */
+int dist[MAX_DATA];
 
 void USART_Init(unsigned int ubrr){
 	/* Set Baud Rate */
@@ -155,6 +158,7 @@ void Stop_Wheels(){
 	OCR0A = 0;
 }
 
+int j = 0;
 
 int main()
 {
@@ -193,13 +197,6 @@ int main()
 	/* Super Loop */
 	while(1)
 	{
-		if(direction == -2){
-			usart_putstring("INICIO \n\r");
-			direction = 0;
-		}
-		if(direction == -1){
-			usart_putstring("FINAL \n\r");
-		}
 		/* Activates sonar */
 		/* Trigger Enable */
 		PORTD|=(1<<PIND7);
@@ -208,49 +205,33 @@ int main()
 
 		/* Trigger Disable */
 		PORTD &=~(1<<PIND7);
-
+		
+		/* Calculates distance */
 		COUNTA = pulse/(58*2);
 		
-		usart_putstring("DISTANCE = \n\r");
-
-		itoa(COUNTA,SHOWA,10);
-
-		usart_putstring(SHOWA);
-		usart_putstring("cm\n\r");
+		dist[j] = COUNTA;
+		
+		j++;
 	
 		_delay_ms(200);
 	}
 	
 }
-/* Data */
-int vel[MAX_DATA];
 
 /* Motor PWM */
 ISR(TIMER2_OVF_vect){
-	//_delay_ms(time);
-	
-	/*if(sin(i*step) >= 0){
-		dutyCycle = sin(i*step)*50+50;
-		Forward_Wheels();
-	}
-	else{
-		dutyCycle = (-1)*sin(i*step)*50 + 50;
-		Backward_Wheels();
-	}
-	if(dutyCycle>=100){
-		dutyCycle = 0;
-	}*/
 	
 	/* Increments interruption counter variable */
 	Int_Counter ++;
 	
 	/* Adjusts changes to occur every x seconds, in this case : 800 / 61 = 13 seconds */
-	if(Int_Counter == 800){
+	if(Int_Counter == 200){
 		if(direction == 1){
 			Stop_Wheels();
 			direction = -1;
 		}
 		if(direction == 0){
+			OCR0A = (pulse/(58*2*100))*255;
 			Backward_Wheels();
 			direction = 1;
 		}
@@ -297,5 +278,27 @@ ISR(TIMER1_OVF_vect)
 		TCNT1 = 0;
 		timer++;
 		PORTD ^= (1<<PORTD6);
+	}
+}
+/* Button Interrupt */
+ISR(PCINT1_vect){
+	if( (PINC & (1<<PINC5)) == 0){
+		/* Debounce */
+		_delay_ms(50);
+		if( (PINC & (1<<PINC5)) == 0 ){
+			/* Disable Motor Interrupt and Stop */
+			Stop_Wheels();
+			TIMSK0 &= ~(1<<TOIE0);
+			/* Print Data */
+			usart_putstring("Stop\n\r");
+			char str[10];
+			int k;
+			for(k=0;k<MAX_DATA;k++){
+				itoa(dist[k],str,10);
+				usart_putstring(str);
+				usart_putchar(';');
+			}
+			usart_putstring("\n\rFinish\n\r");
+		}
 	}
 }

@@ -5,6 +5,9 @@
   <br>
   Sensor Ultrassonico
   https://www.youtube.com/watch?v=DZJoDpMBPEw
+  <br>
+  Baixar Fritzing
+  http://fritzing.en.lo4d.com/
   <img src="pins.png" width="90%"/>
   <img src="interruption.png" width="90%"/>
 </p>

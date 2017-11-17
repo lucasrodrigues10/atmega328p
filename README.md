@@ -19,17 +19,13 @@ Este projeto é um de robô realizado para o trabalho de microcontroladores de E
 
 
 <p align="center">
-  
-  Configurar Atmel Studio
-  https://www.youtube.com/watch?v=qD5EP8tgVpY
-  <br>
-  Sensor Ultrassonico
-  https://www.youtube.com/watch?v=DZJoDpMBPEw
-  <br>
-  Baixar Fritzing
-  http://fritzing.en.lo4d.com/
   <img src="pins.png" width="90%"/>
+  <img src="schematic/sch-img.png" width="90%"/>
   <img src="interruption.png" width="90%"/>
-  ![Go_Horse](https://cdn-images-1.medium.com/max/800/1*pAiFtxYHdjg4-HP6e46wZA.gif)
+ 
+ 
 </p>
 
+## Configuração para Desenvolvimento 
+* Configurar Atmel Studio - https://www.youtube.com/watch?v=qD5EP8tgVpY
+* Sensor Ultrassonico - https://www.youtube.com/watch?v=DZJoDpMBPEw

@@ -20,7 +20,7 @@
 #include <util/delay.h>
 
 /* Duty Cycle in percent */
-double dutyCycle = 99;
+double dutyCycle = 67;
 
 /* Time taken from HIGH to LOW on echo */
 static volatile int pulse = 0;
@@ -104,17 +104,18 @@ void HBridge_Init(){
 }
 
 void Timer_Init(){
-	/* Prescaler timer */
-	TCCR0A |= ((1<<WGM00)|(1<<COM0A1)|(1<<WGM01));
+	/* Prescaler timer, sets fast PWM mode for OCR0A and OCR0B */
+	TCCR0A |= ((1<<WGM00)|(1<<COM0A1)|(1<<WGM01)|(1<<COM0B1));
 	
 	/* Enable timer interrupt */
 	//TIMSK0 = (1<<TOIE0);
 	
 	/* Set dutyCycle in PWM */
 	OCR0A = (dutyCycle/100)*255;
+	OCR0B = (dutyCycle/100)*255;
 	
-	/* Dont remember what is this */
-	TCCR0B = (1<<CS00);
+	/* Set prescaler 0 to TC0B */
+	TCCR0B |= (1<<CS00);
 	
 	TCCR2A = 0;
 	
@@ -156,6 +157,7 @@ void Backward_Wheels(){
 }
 void Stop_Wheels(){
 	OCR0A = 0;
+	OCR0B = 0;
 }
 
 int j = 0;
@@ -173,6 +175,9 @@ int main()
 	
 	/* Led Init */
 	LED_Init();
+	
+	/* Sets pin 11 (OCR0B) as output */
+	DDRD |= (1<<DDD5);
 	
 	/* Sensor Init */
 	Sensor_Init();
